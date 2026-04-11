@@ -1,8 +1,9 @@
 {
     "background": {"color": [0, 0, 0, 0]},
     "camera": {
-        "position": [-5.407,1.702,8.329],
-        "target": [-3.744,0.895,5.966],
+        "position": [-0.158,0,0.239],
+        "rotation": [0, 0, 0],
+        "target": [1.595,-0.409,-2.162],
         "startAnim": "orbit"
     },
     "animTracks": []
