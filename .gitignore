@@ -1,6 +1,8 @@
 node_modules
 dist
-public
+public/*.sog
+public/*.ply
+public/scripts
 .DS_Store
 .npmrc
 .cursor
