@@ -38,6 +38,10 @@ canvas {
     height: 100%;
 }
 
+body, canvas {
+    background: #000000 !important;
+}
+
 button {
     appearance: none;
 }
@@ -86,45 +90,33 @@ button {
     left: max(16px, env(safe-area-inset-left));
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     text-decoration: none;
     white-space: nowrap;
     cursor: pointer;
+    color: #ffffff;
+    transition: color 0.2s ease;
 
-    color: $clr-text-light;
+    &:hover {
+        color: #FFD700;
+    }
 
-    > svg {
-        height: 16px;
-        width: auto;
-        flex-shrink: 0;
-        padding: 8px;
+    > img {
+        height: 28px;
+        width: 28px;
+        object-fit: contain;
         border-radius: 6px;
-        background-color: rgba(black, 0.3);
-
-        > g {
-            &.stroke {
-                fill: black;
-                stroke: black;
-                stroke-width: 2;
-                stroke-linejoin: round;
-                opacity: 0.4;
-            }
-
-            &.fill {
-                fill: currentColor;
-                stroke: none;
-            }
-        }
+        flex-shrink: 0;
     }
 
     > span {
         font-size: 14px;
         font-weight: bold;
         text-shadow:
-            -1px -1px 0 rgba(black, 0.4),
-             1px -1px 0 rgba(black, 0.4),
-            -1px  1px 0 rgba(black, 0.4),
-             1px  1px 0 rgba(black, 0.4);
+            -1px -1px 0 rgba(black, 0.5),
+             1px -1px 0 rgba(black, 0.5),
+            -1px  1px 0 rgba(black, 0.5),
+             1px  1px 0 rgba(black, 0.5);
     }
 }
 

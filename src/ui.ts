@@ -675,15 +675,7 @@ const initUI = (global: Global) => {
         }
     };
 
-    if (window.parent !== window && isThirdPartyEmbedded()) {
-        const viewUrl = new URL(window.location.href);
-        if (viewUrl.pathname === '/s') {
-            viewUrl.pathname = '/view';
-        }
-
-        (dom.supersplatBranding as HTMLAnchorElement).href = viewUrl.toString();
-        dom.supersplatBranding.classList.remove('hidden');
-    }
+    dom.supersplatBranding.classList.remove('hidden');
 };
 
 export { initPoster, initUI };

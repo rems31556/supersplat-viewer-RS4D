@@ -24,6 +24,7 @@ import { initPoster, initUI } from './ui';
 import { Viewer } from './viewer';
 import { initXr } from './xr';
 import { version as appVersion } from '../package.json';
+import { GsplatRevealRadial } from './reveal-radial.mjs';
 
 const loadGsplat = async (app: AppBase, config: Config, progressCallback: (progress: number) => void) => {
     const { contents, contentUrl, unified, aa } = config;
@@ -43,6 +44,24 @@ const loadGsplat = async (app: AppBase, config: Config, progressCallback: (progr
             const material = entity.gsplat.unified ? app.scene.gsplat.material : entity.gsplat.material;
             material.setDefine('GSPLAT_AA', aa);
             material.setParameter('alphaClip', 1 / 255);
+
+             // Reveal effect radial + parametres de celui ci
+            if (!entity.script) {
+                entity.addComponent('script');
+            }
+
+            const revealInstance = entity.script.create(GsplatRevealRadial);
+           if (revealInstance) {
+                revealInstance.speed = 2;
+                revealInstance.acceleration = 2;
+                revealInstance.delay = 3;
+                revealInstance.endRadius = 40;
+                revealInstance.waveTint.set(1, 0.85, 0);    // doré
+                revealInstance.dotTint.set(0.8, 0.8, 0.8);  // gris clair
+                revealInstance.oscillationIntensity = 0.07;  // très léger
+                revealInstance.bandWidth = 1;
+            }
+            
             app.root.addChild(entity);
             resolve(entity);
         });
@@ -136,6 +155,27 @@ const createApp = async (canvas: HTMLCanvasElement, config: Config) => {
 
 // initialize canvas size and resizing
 const initCanvas = (global: Global) => {
+
+        // Debug caméra — tape getCamPos() dans la console F12
+    (window as any).getCamPos = () => {
+        const cam = app.root.findByName('camera');
+        if (cam) {
+            console.log('POSITION:', JSON.stringify([
+                parseFloat(cam.getPosition().x.toFixed(3)),
+                parseFloat(cam.getPosition().y.toFixed(3)),
+                parseFloat(cam.getPosition().z.toFixed(3))
+            ]));
+            console.log('TARGET:', JSON.stringify([
+                parseFloat((cam.getPosition().x + cam.forward.x * 3).toFixed(3)),
+                parseFloat((cam.getPosition().y + cam.forward.y * 3).toFixed(3)),
+                parseFloat((cam.getPosition().z + cam.forward.z * 3).toFixed(3))
+            ]));
+        } else {
+            console.log('Camera non trouvée');
+        }
+    };
+
+
     const { app, events, state } = global;
     const { canvas } = app.graphicsDevice;
 
@@ -298,5 +338,6 @@ const main = async (canvas: HTMLCanvasElement, settingsJson: any, config: Config
 };
 
 console.log(`SuperSplat Viewer v${appVersion} | Engine v${engineVersion} (${engineRevision})`);
+
 
 export { main };
