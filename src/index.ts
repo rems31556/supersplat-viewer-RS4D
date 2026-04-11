@@ -158,7 +158,7 @@ const initCanvas = (global: Global) => {
 
         // Debug caméra — tape getCamPos() dans la console F12
     (window as any).getCamPos = () => {
-        const cam = app.root.findByName('camera');
+        const cam = global.app.root.findByName('camera');
         if (cam) {
             console.log('POSITION:', JSON.stringify([
                 parseFloat(cam.getPosition().x.toFixed(3)),
