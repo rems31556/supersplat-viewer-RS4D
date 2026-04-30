@@ -406,8 +406,8 @@ class Viewer {
                 gsplat.lodUpdateAngle = 90;
                 gsplat.lodBehindPenalty = 5;
 
-                // LOD distance control — full quality within ~5m, LOD1 up to 15m, LOD2 beyond
-                gsplat.lodBaseDistance = 10;
+                // LOD distance control — full quality within ~20m, LOD1 up to 60m, LOD2 beyond
+                gsplat.lodBaseDistance = 20;
                 gsplat.lodMultiplier = 3;
 
                 // same performance, but rotating on slow devices does not give us unsorted splats on sides
